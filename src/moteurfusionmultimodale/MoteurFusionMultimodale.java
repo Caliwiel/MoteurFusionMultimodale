@@ -21,10 +21,10 @@ public class MoteurFusionMultimodale {
      */
     public static void main(String[] args) {
         try {
-            AgentReconnaisseurGeste agentgeste = new AgentReconnaisseurGeste("AgentGeste", "J'ecoute les gestes", null);
-            AgentReconnaisseurVocal agentvocal = new AgentReconnaisseurVocal("AgentVocal", "J'ecoute la voix", null);
-            AgentFusionMultimodale agentmuli = new AgentFusionMultimodale("gentMultiModal", "J'ecoute agent geste et vocal", null);
             PaletteMultimodale palette = new PaletteMultimodale("127.255.255.255:2010");
+            AgentReconnaisseurGeste agentgeste = new AgentReconnaisseurGeste("AgentGeste", "J'ecoute les gestes", null);
+            AgentReconnaisseurVocal agentvocal = new AgentReconnaisseurVocal("AgentVocal", "J'ecoute la voix", null, palette);
+            AgentFusionMultimodale agentmuli = new AgentFusionMultimodale("gentMultiModal", "J'ecoute agent geste et vocal", null);
         } catch (IvyException ex) {
             Logger.getLogger(MoteurFusionMultimodale.class.getName()).log(Level.SEVERE, null, ex);
         }

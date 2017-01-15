@@ -47,6 +47,7 @@ public class AgentReconnaisseurGeste {
 
                 stroke.normalize();
                 String reconnu = reconnaisseur_forme.reconnaitreForme(stroke);
+                System.out.println(reconnu);
                 try {
                     switch(reconnu) {
                         case "rectangle" : 
