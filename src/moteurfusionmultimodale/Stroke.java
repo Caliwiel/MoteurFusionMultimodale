@@ -174,7 +174,6 @@ public class Stroke
 	{
 		ArrayList<Point2D.Double> newPoints = new ArrayList<Point2D.Double>();
 		Rectangle2D.Double boundingBox = getBoundingBox();
-		System.out.println(boundingBox);
 		if(boundingBox.getHeight()>10)
 		{
 			for(int i=0;i<listePoint.size();i++)

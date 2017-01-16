@@ -103,7 +103,7 @@ public class PaletteMultimodale {
                     }
                     try {
                         bus.sendMsg(message);
-                        //System.out.println(message);
+                        System.out.println(message);
                     } catch (IvyException ex) {
                         Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
                     }

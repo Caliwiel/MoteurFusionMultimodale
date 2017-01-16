@@ -24,7 +24,7 @@ public class MoteurFusionMultimodale {
             StateMachine machine = new StateMachine();
             //PaletteMultimodale palette = new PaletteMultimodale("127.255.255.255:2010");
             AgentReconnaisseurGeste agentgeste = new AgentReconnaisseurGeste("AgentGeste", "J'ecoute les gestes", null);
-            AgentReconnaisseurVocal agentvocal = new AgentReconnaisseurVocal("AgentVocal", "J'ecoute la voix", null, machine);
+            //AgentReconnaisseurVocal agentvocal = new AgentReconnaisseurVocal("AgentVocal", "J'ecoute la voix", null, machine);
             AgentFusionMultimodale agentmuli = new AgentFusionMultimodale("gentMultiModal", "J'ecoute agent geste et vocal", null, machine);
         } catch (IvyException ex) {
             Logger.getLogger(MoteurFusionMultimodale.class.getName()).log(Level.SEVERE, null, ex);

@@ -44,6 +44,7 @@ public class AgentReconnaisseurGeste {
                 }
 
                 stroke.normalize();
+                //System.out.println(stroke.listePoint.toString());
                 String reconnu = reconnaisseur_forme.reconnaitreForme(stroke);
                 System.out.println("RECONNU : "+reconnu);
                 try {

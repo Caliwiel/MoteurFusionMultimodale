@@ -77,7 +77,6 @@ public class Dictionnaire {
             BufferedReader br = new BufferedReader(ipsr);
             String ligne;
             while ((ligne = br.readLine()) != null) {
-                System.out.println(ligne);
                 chaine += ligne;
             }
             String[] formes = chaine.split("next");
