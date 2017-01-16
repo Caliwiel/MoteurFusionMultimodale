@@ -35,9 +35,7 @@ public class AgentReconnaisseurGeste {
                 
                 Stroke stroke = new Stroke();
                 String[] pointsxy = strings[0].split(";");
-                
-                System.out.println(pointsxy);
-                
+                                
                 for (int i = 0; i < pointsxy.length; i++) {
                     String[] xy = pointsxy[i].split(",");
                     double x = Double.valueOf(xy[0]);
@@ -47,7 +45,7 @@ public class AgentReconnaisseurGeste {
 
                 stroke.normalize();
                 String reconnu = reconnaisseur_forme.reconnaitreForme(stroke);
-                System.out.println(reconnu);
+                System.out.println("RECONNU : "+reconnu);
                 try {
                     switch(reconnu) {
                         case "rectangle" : 
@@ -55,6 +53,12 @@ public class AgentReconnaisseurGeste {
                             break;
                         case "ellipse" : 
                             bus.sendMsg("FusionMultimodale:ellipse");
+                            break;
+                        case "supprimer" : 
+                             bus.sendMsg("FusionMultimodale:supprimer");
+                            break;
+                        case "deplacer" : 
+                            bus.sendMsg("FusionMultimodale:deplacer");
                             break;
                     }
                     

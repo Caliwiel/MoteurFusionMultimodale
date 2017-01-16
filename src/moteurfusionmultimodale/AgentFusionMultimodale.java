@@ -19,8 +19,10 @@ import java.awt.geom.Point2D;
 public class AgentFusionMultimodale {
     private Ivy bus;
     
-    public AgentFusionMultimodale(String string, String string1, IvyApplicationListener il) throws IvyException {
-        
+    private StateMachine machine;
+    
+    public AgentFusionMultimodale(String string, String string1, IvyApplicationListener il, StateMachine m) throws IvyException {
+        machine = m;
         bus = new Ivy(string, string1, il);
         bus.start("127.255.255.255:2010");
         
@@ -30,8 +32,16 @@ public class AgentFusionMultimodale {
                 
                 switch(strings[0]) {
                     case "rectangle" : 
+                        machine.handleGestEvent(GesteEvent.RECTANGLE);
                         break;
                     case "ellipse":
+                        machine.handleGestEvent(GesteEvent.ELLIPSE);
+                        break;
+                    case "deplacer":
+                        machine.handleGestEvent(GesteEvent.DEPLACER);
+                        break;
+                    case "supprimer":
+                        machine.handleGestEvent(GesteEvent.SUPPRIMER);
                         break;
                 }
                 

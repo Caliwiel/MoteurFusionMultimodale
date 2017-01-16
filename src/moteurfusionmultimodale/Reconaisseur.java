@@ -43,12 +43,12 @@ public class Reconaisseur {
         Set<String> noms = scores.keySet();
         double s = 99999999.0;
         for(String n : noms) {
-            System.out.println(n+" "+scores.get(n));
             if(scores.get(n)<s) {
                 nom = n;
                 s = scores.get(n);
             }
         }
+        System.out.println("reconnaisseur a trouvé : "+nom);
         return nom;
     }
     

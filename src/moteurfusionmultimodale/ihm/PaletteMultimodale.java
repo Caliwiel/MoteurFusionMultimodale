@@ -29,10 +29,13 @@ public class PaletteMultimodale {
     private PaletteGraphique palette;
 
     private Point lastDragPosition = new Point();
+    private Point positionSelect = new Point();
 
     private String nameCurrentObject = "";
 
     private String nameSelectedObject = "";
+    
+    private String couleur = "";
 
     private Stroke current_stroke;
 
@@ -80,14 +83,14 @@ public class PaletteMultimodale {
                 public void receive(IvyClient ic, String[] strings) {
                     current_stroke.addPoint(Integer.valueOf(strings[0]), Integer.valueOf(strings[1]));
                     String message = "Geste coord=";
-                    System.out.println(message);
+                    //System.out.println(message);
                     List<Point2D.Double> points = current_stroke.getPoints();
                     for (Point2D.Double point : points) {
                         message += point.getX() + "," + point.getY() + ";";
                     }
                     try {
                         bus.sendMsg(message);
-                        System.out.println(message);
+                        //System.out.println(message);
                     } catch (IvyException ex) {
                         Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -109,9 +112,18 @@ public class PaletteMultimodale {
     public Point getLastPosition() {
         return lastDragPosition;
     }
+    
+    public void setCouleur (String c){
+        this.couleur = c;
+    }
 
-    public void selectionnerObject() {
-        nameSelectedObject = nameCurrentObject;
+    public String selectionnerObject() {
+        //nameSelectedObject = nameCurrentObject;
+        return nameCurrentObject;
+    }
+    
+    public void setPositionObject() {
+        positionSelect = getLastPosition();
     }
 
     /**
@@ -133,8 +145,27 @@ public class PaletteMultimodale {
      */
     public void dessinerRectangle(Point p) {
         try {
-            System.out.println("x " + p.x + " y " + p.y);
             bus.sendMsg("Palette:CreerRectangle x=" + p.x + " y=" + p.y);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Dessin d'une ellipse avec une couleur
+     */
+    public void dessinerRectangle(String color) {
+        try {
+            bus.sendMsg("Palette:CreerRectangle couleurFond="+color);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Dessin d'un rectangle avec position et couleur
+     */
+    public void dessinerRectangle(Point p, String color) {
+        try {
+            bus.sendMsg("Palette:CreerRectangle x=" + p.x + " y=" + p.y + " couleurFond="+color);
         } catch (IvyException ex) {
             Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,8 +190,27 @@ public class PaletteMultimodale {
      */
     public void dessinerEllipse(Point p) {
         try {
-            System.out.println("x " + p.x + " y " + p.y);
             bus.sendMsg("Palette:CreerEllipse x=" + p.x + " y=" + p.y);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Dessin d'une ellipse avec une couleur
+     */
+    public void dessinerEllipse(String color) {
+        try {
+            bus.sendMsg("Palette:CreerEllipse couleurFond="+color);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Dessin d'une ellipse avec position et couleur
+     */
+    public void dessinerEllipse(Point p, String color) {
+        try {
+            bus.sendMsg("Palette:CreerEllipse x=" + p.x + " y=" + p.y + " couleurFond="+color);
         } catch (IvyException ex) {
             Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -182,7 +232,6 @@ public class PaletteMultimodale {
      */
     public void changerCouleurFondNom(String nom, String couleur) {
         try {
-            System.out.println("Couleur : " + couleur);
             String color = "";
             switch (couleur) {
                 case "rouge":
@@ -247,6 +296,23 @@ public class PaletteMultimodale {
     public void modifierTailleObjetNom(String nom, int l, int h) {
         try {
             bus.sendMsg("Palette:ModifierTailleObjet nom=" + nom + " longueur=" + l + " hauteur=" + h);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    /******** TODOOOOOO *****/
+    public void supprimerObjet(String nom){
+        try {
+            bus.sendMsg("Palette:SupprimerObjet nom=" + nom);
+        } catch (IvyException ex) {
+            Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void supprimerObjetCouleur(String nom, String couleur){
+        try {
+            bus.sendMsg("Palette:SupprimerObjet nom=" + nom + " couleurFond="+couleur);
         } catch (IvyException ex) {
             Logger.getLogger(PaletteMultimodale.class.getName()).log(Level.SEVERE, null, ex);
         }

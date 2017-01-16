@@ -22,13 +22,15 @@ import moteurfusionmultimodale.ihm.PaletteMultimodale;
 public class AgentReconnaisseurVocal {
     private Ivy bus;
     private PaletteMultimodale palette;
+    
+    private StateMachine machine;
 
-    public AgentReconnaisseurVocal(String string, String string1, IvyApplicationListener il, PaletteMultimodale p) {
-      
+    public AgentReconnaisseurVocal(String string, String string1, IvyApplicationListener il, StateMachine m) {
+        machine = m;
         System.out.println("AgentReconnaisseurVocal constructeur");
         
         //Initialisation de la palette
-        palette = p;
+       // palette = p;
         
         try {
             bus = new Ivy("Recepteur", "je reçoit", null);
@@ -36,47 +38,45 @@ public class AgentReconnaisseurVocal {
             bus.bindMsg("sra5 Text=(.*) ", new IvyMessageListener() {
                 @Override
                 public void receive(IvyClient ic, String[] strings) {
-                   System.out.println("Ivy vocal receive");
-                   System.out.println("Message : " + strings[0]);
+                   //System.out.println("Ivy vocal receive");
+                   //System.out.println("Message : " + strings[0]);
                    
                    switch (strings[0]){
-                       case "rectangle" :
-                           //Dessiner un rectangle
-                           //getPaletteMultimodale().dessinerRectangle();
-                           getPaletteMultimodale().dessinerRectangle(getPaletteMultimodale().getLastPosition());
-                           
-                           break;
-                       case "ellipse" :
-                           //Dessiner une ellipse
-                           //getPaletteMultimodale().dessinerEllipse();
-                           getPaletteMultimodale().dessinerEllipse(getPaletteMultimodale().getLastPosition());
-                           break;
                        case "ici" :
-                           //Recuperer une position
-                           getPaletteMultimodale().dessinerEllipse(getPaletteMultimodale().getLastPosition());
+                           m.handleVocalEvent(VocalEvent.ICI);
+                           break;
+                       case "la" :
+                           m.handleVocalEvent(VocalEvent.LA);
+                           break;
+                       case "position" :
+                           m.handleVocalEvent(VocalEvent.POSITION);
                            break;
                        case "rouge" :
+                           m.handleVocalEvent(VocalEvent.ROUGE);
+                           break;
                        case "bleu":
+                           m.handleVocalEvent(VocalEvent.BLEU);
+                           break;
                        case "vert":
+                           m.handleVocalEvent(VocalEvent.VERT);
+                           break;
                        case "jaune":
+                           m.handleVocalEvent(VocalEvent.JAUNE);
+                           break;
                        case "noir":
+                           m.handleVocalEvent(VocalEvent.NOIR);
+                           break;
                        case "blanc":
-                           //Changer de couleur        
-                           System.out.println("on passe ici");
-                           getPaletteMultimodale().changerCouleurFondPoint(getPaletteMultimodale().getLastPosition(), strings[0]);
-                           break;
-                       case "deplacer":
-                           //Déplacer
-                           getPaletteMultimodale().deplacerFormePoint(getPaletteMultimodale().getLastPosition(),getPaletteMultimodale().getLastPosition());
-                           break;
-                       case "taille":
-                           //Modifier la taille
-                           getPaletteMultimodale().modifierTailleObjetPoint(getPaletteMultimodale().getLastPosition(),100, 100);
+                           m.handleVocalEvent(VocalEvent.BLANC);
                            break;
                        case "ce rectangle":
+                           m.handleVocalEvent(VocalEvent.CE_RECTANGLE);
+                           break;
                        case "cette ellipse":
+                           m.handleVocalEvent(VocalEvent.CETTE_ELLIPSE);
+                           break;
                        case "cet objet":
-                           getPaletteMultimodale().selectionnerObject();
+                           m.handleVocalEvent(VocalEvent.CET_OBJET);
                            break;
                        default :
                            break;
@@ -87,12 +87,5 @@ public class AgentReconnaisseurVocal {
         } catch (IvyException ex) {
             Logger.getLogger(AgentReconnaisseurVocal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    private PaletteMultimodale getPaletteMultimodale (){
-        return palette;
-    }
-    public void setPaletteMultimodale (PaletteMultimodale p){
-        palette = p;
     }
 }

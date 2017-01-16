@@ -80,13 +80,12 @@ public class Dictionnaire {
                 System.out.println(ligne);
                 chaine += ligne;
             }
-            System.out.println("FICHIER "+chaine);
             String[] formes = chaine.split("next");
             String[] rect = formes[0].split(":");
             String[] elli = formes[1].split(":");
             Stroke rectangle = new Stroke();
             List<Point2D.Double> rect_points = new ArrayList<>();
-            String[] points = formes[0].split(";");
+            String[] points = rect[1].split(";");
             for (String p : points) {
                 String[] xy = p.split(" ");
                 Point2D.Double point2d = new Point2D.Double(Double.valueOf(xy[0]), Double.valueOf(xy[1]));
@@ -96,7 +95,7 @@ public class Dictionnaire {
 
             Stroke ellipse = new Stroke();
             List<Point2D.Double> ellip_points = new ArrayList<>();
-            points = formes[1].split(";");
+            points = elli[1].split(";");
             for (String p : points) {
                 String[] xy = p.split(" ");
                 Point2D.Double point2d = new Point2D.Double(Double.valueOf(xy[0]), Double.valueOf(xy[1]));
@@ -104,8 +103,32 @@ public class Dictionnaire {
                 ellipse.addPoint(point2d);
             }
 
+            String[] suppr = formes[2].split(":");
+            String[] deplac = formes[3].split(":");
+            Stroke supprimer = new Stroke();
+            List<Point2D.Double> suppr_points = new ArrayList<>();
+            points = suppr[1].split(";");
+            for (String p : points) {
+                String[] xy = p.split(" ");
+                Point2D.Double point2d = new Point2D.Double(Double.valueOf(xy[0]), Double.valueOf(xy[1]));
+                suppr_points.add(point2d);
+                supprimer.addPoint(point2d);
+            }
+
+            Stroke deplacer = new Stroke();
+            List<Point2D.Double> deplac_points = new ArrayList<>();
+            points = deplac[1].split(";");
+            for (String p : points) {
+                String[] xy = p.split(" ");
+                Point2D.Double point2d = new Point2D.Double(Double.valueOf(xy[0]), Double.valueOf(xy[1]));
+                deplac_points.add(point2d);
+                deplacer.addPoint(point2d);
+            }
+            
             formes2D.put(rectangle, "rectangle");
             formes2D.put(ellipse, "ellipse");
+            formes2D.put(supprimer, "supprimer");
+            formes2D.put(deplacer, "deplacer");
 
             br.close();
         } catch (Exception e) {
