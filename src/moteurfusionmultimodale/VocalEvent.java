@@ -21,5 +21,6 @@ public enum VocalEvent {
     NOIR,
     CET_OBJET,
     CETTE_ELLIPSE,
-    CE_RECTANGLE;
+    CE_RECTANGLE,
+    DE_CETTE_COULEUR;
 }

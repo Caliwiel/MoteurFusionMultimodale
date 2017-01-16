@@ -32,7 +32,7 @@ public class AgentReconnaisseurGeste {
         bus.bindMsg("Geste coord=(.*)", new IvyMessageListener() {
             @Override
             public void receive(IvyClient ic, String[] strings) {
-                
+                                
                 Stroke stroke = new Stroke();
                 String[] pointsxy = strings[0].split(";");
                                 

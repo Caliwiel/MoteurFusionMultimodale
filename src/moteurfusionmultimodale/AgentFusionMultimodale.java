@@ -32,6 +32,7 @@ public class AgentFusionMultimodale {
                 
                 switch(strings[0]) {
                     case "rectangle" : 
+                        System.out.println("Syso rectangle");
                         machine.handleGestEvent(GesteEvent.RECTANGLE);
                         break;
                     case "ellipse":

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import moteurfusionmultimodale.AgentReconnaisseurVocal;
 import moteurfusionmultimodale.Reconaisseur;
+import moteurfusionmultimodale.StateMachine;
 import moteurfusionmultimodale.Stroke;
 
 /**
@@ -38,6 +39,16 @@ public class PaletteMultimodale {
     private String couleur = "";
 
     private Stroke current_stroke;
+    
+    private StateMachine machine;
+
+    public StateMachine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(StateMachine machine) {
+        this.machine = machine;
+    }
 
     public PaletteMultimodale(String adresse) throws IvyException {
         palette = new PaletteGraphique(adresse, 10, 10, 500, 550);
@@ -75,6 +86,8 @@ public class PaletteMultimodale {
                 public void receive(IvyClient ic, String[] strings) {
                     current_stroke = new Stroke();
                     current_stroke.addPoint(Integer.valueOf(strings[0]), Integer.valueOf(strings[1]));
+                    
+                    machine.handleClickEvent();
                 }
             });
 
